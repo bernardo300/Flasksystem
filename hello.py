@@ -1,18 +1,19 @@
 from flask import abort
 from flask import Flask
-from flask import redirect
+from flask import redirect, render_template
+
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return '<h1>Ola Flask</h1>'
+    return render_template('index.html')
 
 
 @app.route('/user/<name>')
 def user(name):
-    return '<h1> Hello, {}</h1>'.format(name)
+    return render_template('user.html', name=name)
 
 
 @app.route('/user/<id>')
