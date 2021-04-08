@@ -1,5 +1,5 @@
 from wtforms.validators import DataRequired
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, IntegerField
 from flask_wtf import FlaskForm
 from flask import abort
 from flask import Flask
@@ -25,7 +25,7 @@ def index():
     if form.validate_on_submit():
         name = form.name.data
         form.name.data = ''
-    return render_template('index.html', form=form, name=name)
+    return render_template('index.html', form=form, name=name, current_time=datetime.utcnow())
 
 
 @app.route('/user/<name>')
@@ -53,5 +53,6 @@ def internal_server_error(e):
 
 class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[DataRequired()])
+    age = IntegerField('How is old?', validators=[DataRequired()])
     submit = SubmitField('Submit')
     #app.add_url_rule('/', 'index', index)
